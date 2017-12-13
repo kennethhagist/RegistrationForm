@@ -1,20 +1,134 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="container">
+  <h1>Registration</h1>
+  <h2>Account Information</h2>
+  <h3>*First Name</h3>
+  <form (submit)="onSubmit()">
+    <input 
+      type="text" 
+      name="first_name" 
+      required 
+      minlength="3" 
+      maxlength="24"
+      [(ngModel)]="user.first_name"
+      #first_name='ngModel'
+    />
+    {{ first_name.errors | json }}
+    <div *ngIf="first_name.errors">Error First Name</div>
+    <h3>*Last Name</h3>
+    <input 
+      type="text" 
+      name="last_name" 
+      required 
+      minlength="2" 
+      maxlength="24"
+      [(ngModel)]="user.last_name"
+      #last_name='ngModel'
+    />
+    {{ last_name.errors | json }}
+    <div *ngIf="last_name.errors">Error Last Name</div>
+    <h3>*Email</h3>
+    <input 
+      type="text" 
+      name="email" 
+      required 
+      minlength="4" 
+      maxlength="24"
+      [(ngModel)]="user.email"
+      #email='ngModel'
+    />
+    {{ email.errors | json }}
+    <div *ngIf="email.errors">Error Email Address</div>
+    <h3>*Password</h3>
+    <input 
+      type="text" 
+      name="password" 
+      required 
+      minlength="10" 
+      maxlength="24"
+      pattern="^([a-zA-Z0-9@*#]{8,15})$"
+      [(ngModel)]="user.password"
+      #password='ngModel'
+    />
+    {{ password.errors | json }}
+    <div *ngIf="password.errors">Error Password</div>
+    <h3>*Password Confirmation</h3>
+    <input 
+      type="text" 
+      name="password confirmation" 
+      required 
+      minlength="10" 
+      maxlength="24"
+      pattern="^([a-zA-Z0-9@*#]{8,15})$"
+      [(ngModel)]="user.password_confirm"
+      #password_confirm='ngModel'
+    />
+    {{ password_confirm.errors | json }}
+    <div *ngIf="password_confirm.errors">Error Confirm Password</div>
+    <h3>*Street Address</h3>
+    <input 
+      type="text" 
+      name="street address" 
+      required 
+      minlength="4" 
+      maxlength="100"
+      [(ngModel)]="user.street_address"
+      #street_address='ngModel'
+    />
+    {{ street_adderess.errors | json }}
+    <div *ngIf="street_address.errors">Error Street Address</div>
+    <h3>Unit/Apt #</h3>
+    <input 
+      type="text" 
+      name="Unit/Apt #" 
+      minlength="4" 
+      maxlength="24"
+      [(ngModel)]="user.unit"
+      #unit='ngModel'
+    />
+    <h3>*City</h3>
+    <input 
+      type="text" 
+      name="City" 
+      required 
+      minlength="4" 
+      maxlength="24"
+      [(ngModel)]="user.city"
+      #city='ngModel'
+    />
+    {{ city.errors | json }}
+    <div *ngIf="city.errors">Error city</div>
+    <h3>*State</h3>
+    <select  
+      name="State" 
+      required 
+      minlength="2" 
+      [(ngModel)]="user.state"
+      #state='ngModel'>
+      <option *ngFor="let state of states">{{state.name}}</option>
+    </select>
+    {{ state.errors | json }}
+    <div *ngIf="state.errors">Error State</div>
+    <h3>*I'm Feeling Lucky</h3>
+    <input 
+      type="radio" 
+      name="lucky" 
+      id="yes"
+      [(ngModel)]="user.lucky" 
+      #lucky='ngModel'
+      value="true">
+    <label for="yes">Yes</label>
+    <input 
+      type="radio" 
+      name="lucky" 
+      id="no" 
+      [(ngModel)]="user.lucky" 
+      #lucky='ngModel'
+      value="false">
+    <label for="no">No</label>
+    {{ lucky.errors | json }}
+    <div *ngIf="lucky.errors">Error I'm Feeling Lucky</div>
+    <!-- <input type="submit" name="Register"> -->
+    <button class="bigButton" type="submit" [disabled]="myform.invalid">Register</button>
+  </form>  
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-

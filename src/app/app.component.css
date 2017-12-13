@@ -1,0 +1,13 @@
+div.container {
+    width: 970px;
+    margin: 0 auto;
+}
+div.*ngIf {
+    color: red;
+}
+.ng-invalid { }
+.ng-valid { }
+.ng-untouched { }
+.ng-touched { }
+.ng-dirty { }
+.ng-pristine { }
