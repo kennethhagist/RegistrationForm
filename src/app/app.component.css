@@ -5,9 +5,6 @@ div.container {
 div.*ngIf {
     color: red;
 }
-.ng-invalid { }
-.ng-valid { }
-.ng-untouched { }
-.ng-touched { }
-.ng-dirty { }
-.ng-pristine { }
+span {
+  color: red;
+}

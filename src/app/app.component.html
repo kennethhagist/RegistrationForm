@@ -3,132 +3,154 @@
   <h1>Registration</h1>
   <h2>Account Information</h2>
   <h3>*First Name</h3>
-  <form (submit)="onSubmit()">
-    <input 
-      type="text" 
-      name="first_name" 
-      required 
-      minlength="3" 
-      maxlength="24"
-      [(ngModel)]="user.first_name"
-      #first_name='ngModel'
-    />
-    {{ first_name.errors | json }}
-    <div *ngIf="first_name.errors">Error First Name</div>
-    <h3>*Last Name</h3>
-    <input 
-      type="text" 
-      name="last_name" 
-      required 
-      minlength="2" 
-      maxlength="24"
-      [(ngModel)]="user.last_name"
-      #last_name='ngModel'
-    />
-    {{ last_name.errors | json }}
-    <div *ngIf="last_name.errors">Error Last Name</div>
-    <h3>*Email</h3>
-    <input 
-      type="text" 
-      name="email" 
-      required 
-      minlength="4" 
-      maxlength="24"
-      [(ngModel)]="user.email"
-      #email='ngModel'
-    />
-    {{ email.errors | json }}
-    <div *ngIf="email.errors">Error Email Address</div>
-    <h3>*Password</h3>
-    <input 
-      type="text" 
-      name="password" 
-      required 
-      minlength="10" 
-      maxlength="24"
-      pattern="^([a-zA-Z0-9@*#]{8,15})$"
-      [(ngModel)]="user.password"
-      #password='ngModel'
-    />
-    {{ password.errors | json }}
-    <div *ngIf="password.errors">Error Password</div>
-    <h3>*Password Confirmation</h3>
-    <input 
-      type="text" 
-      name="password confirmation" 
-      required 
-      minlength="10" 
-      maxlength="24"
-      pattern="^([a-zA-Z0-9@*#]{8,15})$"
-      [(ngModel)]="user.password_confirm"
-      #password_confirm='ngModel'
-    />
-    {{ password_confirm.errors | json }}
-    <div *ngIf="password_confirm.errors">Error Confirm Password</div>
-    <h3>*Street Address</h3>
-    <input 
-      type="text" 
-      name="street address" 
-      required 
-      minlength="4" 
-      maxlength="100"
-      [(ngModel)]="user.street_address"
-      #street_address='ngModel'
-    />
-    {{ street_adderess.errors | json }}
-    <div *ngIf="street_address.errors">Error Street Address</div>
-    <h3>Unit/Apt #</h3>
-    <input 
-      type="text" 
-      name="Unit/Apt #" 
-      minlength="4" 
-      maxlength="24"
-      [(ngModel)]="user.unit"
-      #unit='ngModel'
-    />
-    <h3>*City</h3>
-    <input 
-      type="text" 
-      name="City" 
-      required 
-      minlength="4" 
-      maxlength="24"
-      [(ngModel)]="user.city"
-      #city='ngModel'
-    />
-    {{ city.errors | json }}
-    <div *ngIf="city.errors">Error city</div>
-    <h3>*State</h3>
-    <select  
-      name="State" 
-      required 
-      minlength="2" 
-      [(ngModel)]="user.state"
+  <form (ngSubmit)="show()" name="regsform" #regsform='ngForm'>
+    <p>First name:
+      <input type="text" name="firstName" [(ngModel)]="user.firstName"
+      required
+      minlength="3"
+      #firstName='ngModel'>
+      <span *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <span *ngIf="firstName.errors.required">First name is required</span>
+        <span *ngIf="firstName.errors.minlength">First name must be at least 3 characters long</span>
+      </span>
+    </p>
+    <p>Last name:
+      <input type="text" name="lastName" [(ngModel)]="user.lastName"
+      required
+      minlength="3"
+      #lastName='ngModel'>
+      <span *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+        <span *ngIf="lastName.errors.required">Last name is required</span>
+        <span *ngIf="lastName.errors.minlength">Last name must be at least 3 characters long</span>
+      </span>
+    </p>
+    <p>Email:
+      <input type="email" name="email" [(ngModel)]="user.email"
+      required
+      email
+      #email='ngModel'>
+      <span *ngIf="email.invalid && (email.dirty || email.touched)">
+        <span *ngIf="email.errors.required">Email address is required</span>
+        <span *ngIf="email.errors.email">Email address must be valid</span>
+      </span>
+    </p>
+    <p>Passowrd:
+      <input type="password" name="password" [(ngModel)]="user.password"
+      required
+      minlength="3"
+      maxlength='24'
+      pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,24}"
+      #password='ngModel'>
+      <span *ngIf="password.invalid && (password.dirty || password.touched)">
+        <span *ngIf="password.errors.required">Password is required</span>
+        <span *ngIf="password.errors.pattern">Password must be at least 8 characters long, contain 1 capital, 1 munber and a special character</span>
+      </span>
+    </p>
+    <p>Confirm Passowrd:
+      <input type="password" name="confirm" [(ngModel)]="user.confirm"
+      required
+      #confirm='ngModel'>
+      <span *ngIf="confirm.invalid && (confirm.dirty || confirm.touched)">
+        Confirm password entry needs to match password entered in above field
+      </span>
+    </p>
+    <p>Street Address:
+      <input type="text" name="street" [(ngModel)]="user.street"
+      required
+      #street='ngModel'>
+      <span *ngIf="street.invalid && (street.dirty || street.touched)">
+        <span *ngIf="street.errors.required">Street address is required</span>
+      </span>
+    </p>
+    <p>Unit/Apt #:
+      <input type="text" name="unit" [(ngModel)]="user.unit">
+    </p>
+    <p>City:
+      <input type="text" name="city" [(ngModel)]="user.city"
+      required
+      #city='ngModel'>
+      <span *ngIf="city.invalid && (city.dirty || city.touched)">
+        <span *ngIf="city.errors.required">City name is required</span>
+      </span>
+    </p>
+    <p>State:
+      <select name="state" [(ngModel)]="user.state"
+      required
       #state='ngModel'>
-      <option *ngFor="let state of states">{{state.name}}</option>
-    </select>
-    {{ state.errors | json }}
-    <div *ngIf="state.errors">Error State</div>
-    <h3>*I'm Feeling Lucky</h3>
-    <input 
-      type="radio" 
-      name="lucky" 
-      id="yes"
-      [(ngModel)]="user.lucky" 
-      #lucky='ngModel'
-      value="true">
-    <label for="yes">Yes</label>
-    <input 
-      type="radio" 
-      name="lucky" 
-      id="no" 
-      [(ngModel)]="user.lucky" 
-      #lucky='ngModel'
-      value="false">
-    <label for="no">No</label>
-    {{ lucky.errors | json }}
-    <div *ngIf="lucky.errors">Error I'm Feeling Lucky</div>
-    <!-- <input type="submit" name="Register"> -->
-    <button class="bigButton" type="submit" [disabled]="myform.invalid">Register</button>
-  </form>  
+        <option value="Al">Al</option>
+        <option value="AK">AK</option>
+        <option value="AS">AS</option>
+        <option value="AZ">AZ</option>
+        <option value="AR">AR</option>
+        <option value="CA">CA</option>
+        <option value="CO">CO</option>
+        <option value="CT">CT</option>
+        <option value="DE">DE</option>
+        <option value="DC">DC</option>
+        <option value="FL">FL</option>
+        <option value="GA">GA</option>
+        <option value="GU">GU</option>
+        <option value="HI">HI</option>
+        <option value="ID">ID</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="IA">IA</option>
+        <option value="KS">KS</option>
+        <option value="KY">KY</option>
+        <option value="LA">LA</option>
+        <option value="ME">ME</option>
+        <option value="MD">MD</option>
+        <option value="MA">MA</option>
+        <option value="MI">MI</option>
+        <option value="MN">MN</option>
+        <option value="MS">MS</option>
+        <option value="MO">MO</option>
+        <option value="MT">MT</option>
+        <option value="NE">NE</option>
+        <option value="NV">NV</option>
+        <option value="NH">NH</option>
+        <option value="NJ">NJ</option>
+        <option value="NM">NM</option>
+        <option value="NY">NY</option>
+        <option value="NC">NC</option>
+        <option value="ND">ND</option>
+        <option value="OH">OH</option>
+        <option value="OK">OK</option>
+        <option value="OR">OR</option>
+        <option value="PA">PA</option>
+        <option value="PR">PR</option>
+        <option value="RI">RI</option>
+        <option value="SC">SC</option>
+        <option value="SD">SD</option>
+        <option value="TN">TN</option>
+        <option value="TX">TX</option>
+        <option value="UT">UT</option>
+        <option value="VT">VT</option>
+        <option value="VA">VA</option>
+        <option value="WA">WA</option>
+        <option value="WV">WV</option>
+        <option value="WI">WI</option>
+        <option value="WY">WY</option>
+      </select>
+      <span *ngIf="state.invalid && (state.dirty || state.touched)">
+        <span *ngIf="state.errors.required">State is required</span>
+      </span>
+    </p>
+    <p>I'm Feeling Lucky:
+      <input type="radio" name="lucky" value="yes" checked>Yes
+      <input type="radio" name="lucky" value="no">No
+    </p>
+    <button type="submit" ng-disabled="false" *ngIf="regsform.valid">Register</button>
+    <p>{{buttonclick}}</p>
+  </form>
 </div>
+<!-- <script>
+  var app = angular.module('formApp', []);
+  app.controller('formCtrl', function($scope) {
+      $scope.firstName = "";
+      $scope.lastName = "";
+      $scope.email = "";
+      $scope.street = "";
+      $scope.state = "";
+  });
+</script> -->
